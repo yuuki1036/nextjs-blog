@@ -1,13 +1,19 @@
 import Head from "next/head";
-import styles from "./layout.module.css";
+import styles from "../styles/layout.module.css";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import React from "react";
 
-const name = "Your Name";
-export const siteTitle = "Next.js Sample Website";
+const name = "yuuki1036";
+export const siteTitle = "yuuki1036 portofolio";
 
-const Layout = ({ children, home }) => (
+type Props = {
+  children: React.ReactNode;
+  isHome?: boolean;
+};
+
+const Layout = ({ children, isHome }: Props) => (
   <div className={styles.container}>
     <Head>
       <link rel="icon" href="/favicon.ico" />
@@ -25,7 +31,7 @@ const Layout = ({ children, home }) => (
       <meta name="twitter:card" content="summary_large_image" />
     </Head>
     <header className={styles.header}>
-      {home ? (
+      {isHome ? (
         <>
           <Image
             src="/images/profile.jpg"
@@ -58,7 +64,7 @@ const Layout = ({ children, home }) => (
       )}
     </header>
     <main>{children}</main>
-    {!home && (
+    {!isHome && (
       <div className={styles.backToHome}>
         <Link href="/">
           <a>← Back to home</a>

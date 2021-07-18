@@ -6,6 +6,11 @@ import html from "remark-html";
 
 const postsDirName = path.join(process.cwd(), "posts");
 
+type MatterResultData = {
+  date: string;
+  title: string;
+};
+
 // 一覧表示用
 export const getSortedPostsData = () => {
   // /posts 配下のファイル名を取得する
@@ -21,7 +26,7 @@ export const getSortedPostsData = () => {
 
     return {
       id,
-      ...matterResult.data,
+      ...(matterResult.data as MatterResultData),
     };
   });
   // 日付でソート
@@ -41,7 +46,7 @@ export const getAllPostIds = () => {
   });
 };
 
-export const getPostData = async (id) => {
+export const getPostData = async (id: string) => {
   // .mdファイルを文字列として読み取る
   const fullPath = path.join(postsDirName, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
@@ -56,6 +61,6 @@ export const getPostData = async (id) => {
   return {
     id,
     contentHtml,
-    ...matterResult.data,
+    ...(matterResult.data as MatterResultData),
   };
 };
